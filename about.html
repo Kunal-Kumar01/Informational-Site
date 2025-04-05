@@ -1,12 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <body>
     <h1>This is about page</h1>
     <h3>Hello! My name is Kunal Kumar</h3>
+    <!-- <button class="backBtn">Back to index page</button>
+
+    <script defer>
+        document.querySelector('.backBtn').addEventListener('click', () => {
+            fetch('/backButton')
+                .then(response => {
+                    // For 404 responses, we still want to process the HTML
+                    return response.text();
+                })
+                .then(data => {
+                    const parser = new DOMParser();
+                    const doc = parser.parseFromString(data, 'text/html');
+                    const bodyContent = doc.body.innerHTML;
+                    document.body.innerHTML = bodyContent;
+                    history.pushState({}, "index", "/");
+                })
+                .catch(error => {
+                    console.error('There was a problem with the fetch operation:', error);
+                });
+        });
+    </script> -->
 </body>
+
 </html>

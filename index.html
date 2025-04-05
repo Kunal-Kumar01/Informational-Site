@@ -1,11 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <body>
     <h1>Index.html file</h1>
+    <button class="abtBtn">Go to about page</button>
+    <button class="conBtn">Go to contact page</button>
+    <button class="notFoundBtn">Non-existing page</button>
+    <script defer>
+        document.querySelector('.abtBtn').addEventListener('click', () => {
+            fetch('goToAbout')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.text();
+                })
+                .then(data => {
+                    const parser = new DOMParser();
+                    const doc = parser.parseFromString(data, 'text/html');
+                    const bodyContent = doc.body.innerHTML;
+                    document.body.innerHTML = bodyContent;
+                    history.pushState({}, "About", "/about");
+                })
+                .catch(error => {
+                    console.error('There was a problem with the fetch operation:', error);
+                });
+        });
+        document.querySelector('.conBtn').addEventListener('click', () => {
+            fetch('goToContact')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.text();
+                })
+                .then(data => {
+                    const parser = new DOMParser();
+                    const doc = parser.parseFromString(data, 'text/html');
+                    const bodyContent = doc.body.innerHTML;
+                    document.body.innerHTML = bodyContent;
+                    history.pushState({}, "Contact", "/contact-me");
+                })
+                .catch(error => {
+                    console.error('There was a problem with the fetch operation:', error);
+                });
+        });
+        document.querySelector('.notFoundBtn').addEventListener('click', () => {
+            fetch('non-existent-path')
+                .then(response => {
+                    // For 404 responses, we still want to process the HTML
+                    return response.text();
+                })
+                .then(data => {
+                    const parser = new DOMParser();
+                    const doc = parser.parseFromString(data, 'text/html');
+                    const bodyContent = doc.body.innerHTML;
+                    document.body.innerHTML = bodyContent;
+                    history.pushState({}, "404", "/non-existent-path");
+                })
+                .catch(error => {
+                    console.error('There was a problem with the fetch operation:', error);
+                });
+        });
+    </script>
 </body>
+
 </html>
